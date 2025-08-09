@@ -1,0 +1,20 @@
+{
+    "batch_size": 32,
+    "epochs": 10,
+    "learning_rate": 0.001,
+    "lambda": 1.0,
+    "max_seq_len": 150,
+    "se_classes": 1000,
+    "device": "cuda",
+  
+    "paths": {
+      "train_bindingdb": "data/bindingdb_train.json",
+      "train_sider": "data/sider_train.json",
+      "test_bindingdb": "data/bindingdb_test.json",
+      "test_sider": "data/sider_test.json",
+      "protein_embeddings": "data/protein_embeddings.pkl",
+      "smiles_vocab": "data/smiles_vocab.json",
+      "model_weights": "multi_task_model.pt"
+    }
+  }
+  
