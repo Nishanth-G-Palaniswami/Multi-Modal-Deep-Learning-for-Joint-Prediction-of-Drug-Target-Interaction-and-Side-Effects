@@ -3,11 +3,11 @@
 > **One‑pager:** Multi‑modal, multi‑task model that jointly predicts **binding affinity (pKI)** and **side‑effects** from SMILES (sequence + 2D image) and **protein embeddings**.
 
 <p align="center">
-  <img src="assets/arch_dti.png" alt="Drug–Target Interaction architecture" width="85%"/>
+  <img src="assets/drug target interaction.png" alt="Drug–Target Interaction architecture" width="85%"/>
 </p>
 
 <p align="center">
-  <img src="assets/arch_se.png" alt="Side‑Effect Prediction architecture" width="85%"/>
+  <img src="assets/side effect prediction.png" alt="Side‑Effect Prediction architecture" width="85%"/>
 </p>
 
 ---
