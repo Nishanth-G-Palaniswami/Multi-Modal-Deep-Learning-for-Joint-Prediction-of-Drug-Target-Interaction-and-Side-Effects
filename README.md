@@ -96,21 +96,3 @@ python src/evaluate.py --checkpoint runs/best.ckpt --split test
 ## 📄 License
 
 MIT
-
----
-
-### 📎 Notes for this README
-
-* Place the provided diagrams in `assets/` with filenames:
-
-  * `assets/arch_dti.png` (Drug–Target Interaction)
-  * `assets/arch_se.png` (Side‑Effect Prediction)
-* Then commit & push:
-
-```bash
-git mkdir -p assets
-# copy your two images into assets/ as arch_dti.png and arch_se.png
-git add assets/*.png README.md
-git commit -m "Add architecture diagrams + README"
-git push
-```
