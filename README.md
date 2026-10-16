@@ -1,28 +1,27 @@
-# Multi‑Modal Deep Learning for Joint Prediction of Drug–Target Interaction & Side‑Effects
+# Multi-Modal Deep Learning for Joint Prediction of Drug-Target Interaction and Side Effects
 
-> **One‑pager:** Multi‑modal, multi‑task model that jointly predicts **binding affinity (pKI)** and **side‑effects** from SMILES (sequence + 2D image) and **protein embeddings**.
+> **One-pager:** Multi-modal, multi-task model that jointly predicts **binding affinity (pKi)** and **side effects** from SMILES (sequence + 2D image) and **protein embeddings**.
 
 <p align="center">
-  <img src="assets/drug target interaction.png" alt="Drug–Target Interaction architecture" width="85%"/>
+  <img src="assets/drug target interaction.png" alt="Drug-Target Interaction architecture" width="85%"/>
 </p>
 
 <p align="center">
-  <img src="assets/side effect prediction.png" alt="Side‑Effect Prediction architecture" width="85%"/>
+  <img src="assets/side effect prediction.png" alt="Side-Effect Prediction architecture" width="85%"/>
 </p>
 
 ---
 
-## ✨ Highlights
+## Highlights
 
-* **Multi‑modal inputs**: SMILES **sequence** → Transformer, SMILES **image** → CNN; **protein** sequences → ProtBERT + linear head.
-* **Multi‑task learning**:
+* **Multi-modal inputs**: SMILES **sequence** through a Transformer, SMILES **image** through a CNN; **protein** sequences through ProtBERT plus a linear head.
+* **Multi-task learning**:
+  * **DTI** (drug-target interaction): regression on **pKi**
+  * **Side effects**: multi-label classification
+* **Fusion**: image + text produce a drug embedding, fused with the protein embedding.
+* **Datasets**: **BindingDB** (affinity) and **SIDER** (side effects), protein sequences via **UniProt**.
 
-  * **DTI**: regression on **pKI**
-  * **Side‑effects**: multi‑label classification
-* **Fusion**: image + text → drug embedding → fused with protein embedding.
-* **Datasets**: **BinderDB** (affinity) and **SIDER** (side‑effects), protein sequences via **UniProt**.
-
-## 📦 Repository Structure
+## Repository structure
 
 ```
 src/
@@ -35,64 +34,64 @@ src/
  └─ config.json       # Hyperparams & paths
 ```
 
-## 🔧 Setup
+## Setup
 
 ```bash
 # Python 3.9+
 python -m venv .venv && source .venv/bin/activate  # (Windows: .venv\Scripts\activate)
-pip install -r requirements.txt
+pip install torch transformers rdkit-pypi pandas numpy scikit-learn opencv-python
 ```
-
-**Core deps:** `torch`, `transformers`, `rdkit-pypi`, `pandas`, `numpy`, `scikit-learn`, `opencv-python`
 
 Create a `.env` or edit `config.json` to point to your data folders.
 
-## 🗂️ Data
+## Data
 
-* **BinderDB** → drug–target affinity (Ki → **pKI = −log10(Ki)**)
-* **SIDER** → side‑effects for \~1.4k drugs mapped to 5,880 terms
-* **UniProt/ProtBERT** → protein sequence embeddings (frozen or fine‑tuned)
+* **BindingDB**: drug-target affinity (Ki converted to **pKi = -log10(Ki)**)
+* **SIDER**: side effects for about 1.4k drugs mapped to 5,880 terms
+* **UniProt / ProtBERT**: protein sequence embeddings (frozen or fine-tuned)
 
 Convert SMILES to 2D images with **RDKit**; tokenized SMILES feed the Transformer.
 
-## ▶️ Train
+## Train
 
 ```bash
 python src/train.py --config src/config.json
 ```
 
-Key config knobs: batch size, learning rate, loss weights, image size (e.g., 64×64), transformer dims, ProtBERT freeze.
+Key config knobs: batch size, learning rate, loss weights, image size (for example 64x64), transformer dims, ProtBERT freeze.
 
-## 📈 Evaluate
+## Evaluate
 
 ```bash
 python src/evaluate.py --checkpoint runs/best.ckpt --split test
 ```
 
-**DTI**: RMSE/MSE on pKI.
-**SE**: mAP/F1/partial‑accuracy.
+**DTI**: RMSE/MSE on pKi.
+**SE**: mAP / F1 / partial accuracy.
 
-## 🧪 Results (course project)
+## Results (course project)
 
-* **SE head** benefited from multitask learning; **DTI** regressor mildly regressed due to gradient conflict.
-* Next: apply **PCGrad/GradNorm** for conflict mitigation; explore **pKd/IC50**.
+* The **side-effect head** benefited from multitask learning; the **DTI regressor** mildly regressed due to gradient conflict between the two losses.
+* Next: apply **PCGrad/GradNorm** for conflict mitigation; explore **pKd/IC50** objectives.
 
-## 🗺️ Roadmap
+## Roadmap
 
-* [ ] Gradient surgery (PCGrad) for multi‑task stability
-* [ ] Fine‑tune ProtBERT end‑to‑end
-* [ ] Add pKd/IC50 objectives & uncertainty calibration
+* [ ] Gradient surgery (PCGrad) for multi-task stability
+* [ ] Fine-tune ProtBERT end-to-end
+* [ ] Add pKd/IC50 objectives and uncertainty calibration
 * [ ] Weights & Biases logging + model cards
 
-## 📝 Citation
+## Citation
 
-> Yu et al., **Gradient Surgery for Multi‑Task Learning**, arXiv:2001.06782.
+> Yu et al., **Gradient Surgery for Multi-Task Learning**, arXiv:2001.06782.
 
-## 👥 Authors
+## Authors
 
-* **Nishanth G. Palaniswami (NG3124)**
-* **Arun Purohit (AP9111)**
+* **Nishanth G. Palaniswami**
+* **Arun Purohit**
 
-## 📄 License
+NYU course project.
 
-MIT
+## License
+
+MIT, see [LICENSE](LICENSE).
